@@ -68,6 +68,12 @@ A professional-grade drum machine web application built with React and TypeScrip
 
 ## �️ **Installation & Setup**
 
+## 📚 Documentation
+
+- **[Complete Documentation](DOCS.md)** - Comprehensive guide covering development, deployment, and technical details
+- **[Version History](CHANGELOG.md)** - Release notes and version information
+- **[Audio Samples Guide](public/audio/samples/README.md)** - Information about drum samples
+
 ### **Prerequisites**
 - Node.js 18+
 - npm or yarn
@@ -108,60 +114,29 @@ This application comes with **high-quality drum samples** already included:
 
 No additional setup required - just install and play! 🎵
 
-## 🏗️ **Technology Stack**
+## 🏗️ Technology Stack
 
-- **Frontend**: React 18 with TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **Audio Engine**: Web Audio API
-- **Icons**: Lucide React
-- **Code Quality**: ESLint, TypeScript strict mode
+- **React 18** with TypeScript
+- **Vite** for blazing fast builds
+- **Web Audio API** for professional audio
+- **Tailwind CSS** for modern styling
 
-## 🎼 **Musical Notation**
+For detailed technical information, see [DOCS.md](DOCS.md).
 
-The app features a unique **drum staff notation renderer** that displays your patterns in standard musical notation:
-- Standard 5-line drum staff
-- Proper percussion symbols (noteheads, x-notes, triangles)
-- Velocity indication through opacity
-- Accent indication through note size
-- Educational value for learning drum notation
+## 🤝 Contributing
 
-## 🔊 **Audio Engine**
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
-Built on the Web Audio API for professional performance:
-- **Precise Timing**: Chris Wilson's scheduling technique for perfect timing
-- **Low Latency**: < 10ms trigger response time
-- **Multi-Track**: Simultaneous playback of all drum voices
-- **Effects Processing**: Real-time audio effects and filtering
-- **Sample Management**: Efficient loading, caching, and cleanup
+## 📄 License
 
-3. Open your browser and navigate to `http://localhost:5173`
+MIT License - see [LICENSE](LICENSE) for details.
 
-### Building for Production
+---
 
-```bash
-npm run build
-```
-
-## 🎵 How to Use
-
-1. **Select a Genre**: Click on Metal, Post-Hardcore, Metalcore, or Jazz to load a preset pattern
-2. **Edit Pattern**: Click on the grid squares to toggle drum hits on/off
-3. **Test Sounds**: Click drum buttons (Kick, Snare, etc.) to trigger individual sounds
-4. **Control Playback**: Use Play/Pause/Stop buttons to control pattern playback
-5. **Adjust Settings**: Modify BPM and volume using the sliders
-6. **Clear Pattern**: Use the clear button to reset the current pattern
-
-## 🛠️ Technology Stack
-
-- **Frontend**: React 18 with TypeScript
-- **Build Tool**: Vite
-- **Audio Engine**: Tone.js (Web Audio API)
-- **Styling**: Tailwind CSS
-- **Icons**: Lucide React
-
-```js
-export default tseslint.config([
+**Made with ❤️ for drummers and music producers**
   globalIgnores(['dist']),
   {
     files: ['**/*.{ts,tsx}'],
