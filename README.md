@@ -6,83 +6,11 @@ A professional-grade drum machine web application built with React and TypeScrip
 
 ![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen) ![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue) ![React](https://img.shields.io/badge/React-18-61dafb) ![Vite](https://img.shields.io/badge/Vite-Latest-646cff) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-## 🚀 **Features**
+## 🚀 Quick Start
 
-### **Core Drum Machine**
-- 🎵 **Multi-Genre Support**: Metal, Post-Hardcore, Metalcore, Jazz (98 professional patterns)
-- 🔊 **Real Audio Samples**: High-quality WAV recordings included
-- 🎛️ **16-Step Sequencer**: Professional pattern programming interface
-- ⚡ **Real-Time Performance**: Live drum triggering and pattern playback
-- 🎚️ **BPM Control**: 60-300 BPM with smooth transitions
-
-### **Advanced Performance**
-- 🎯 **Probability System**: Dynamic pattern variations with master probability
-- 🌪️ **Scatter Effect**: Adds organic timing variations for human feel
-- 🎲 **Smart Randomization**: Intelligent pattern generation by drum groups
-- 🥁 **Fill Patterns**: Automatic and manual fill generation
-- 🎵 **Groove Controls**: Swing, humanization, velocity randomization
-
-### **Professional Mixing & Effects**
-- 🎛️ **Professional Mixer**: Per-drum volume, pan, mute, solo controls
-- 🎚️ **Master Section**: Master volume with visual monitoring
-- 🎸 **Effects Processor**: Reverb, delay, filter, distortion
-- 🔧 **Advanced Effects**: Per-drum and master effect chains
-
-### **Unique Features**
-- 🎼 **Drum Notation Renderer**: Professional musical staff notation display
-- ⌨️ **Keyboard Controls**: Live performance with QWERTY shortcuts
-- 📱 **Responsive Design**: Optimized for desktop, tablet, and mobile
-- 🎨 **Modern UI/UX**: Beautiful animations, gradients, and transitions
-
-## 📊 **Pattern Library**
-
-**98 Professional Patterns** across 4 genres:
-- **Metal**: 30 patterns (120-210 BPM) - Heavy, aggressive, double-bass rhythms
-- **Post-Hardcore**: 20 patterns (130-200 BPM) - Dynamic, emotional patterns
-- **Metalcore**: 27 patterns (140-210 BPM) - Technical, breakdown-heavy
-- **Jazz**: 21 patterns (80-280 BPM) - Swing, bebop, Latin rhythms
-
-## 🎹 **Keyboard Shortcuts**
-
-### **Drum Triggers** (Live Performance)
-- `Q` - Kick Drum
-- `W` - Snare
-- `E` - Hi-Hat (Closed)
-- `R` - Hi-Hat (Open)
-- `T` - Crash Cymbal
-- `Y` - Ride Cymbal
-- `U` - High Tom
-- `I` - Mid Tom
-- `O` - Low Tom
-
-### **Transport Controls**
-- `Space` - Play/Pause
-- `Esc` - Stop
-- `Del` - Clear Pattern
-
-### **Advanced Controls**
-- `Ctrl+R` - Randomize Pattern
-- `Ctrl+S` - Apply Scatter Effect
-- `Ctrl+C` - Copy Pattern
-- `Ctrl+V` - Paste Pattern
-
-## �️ **Installation & Setup**
-
-## 📚 Documentation
-
-- **[Complete Documentation](DOCS.md)** - Comprehensive guide covering development, deployment, and technical details
-- **[Version History](CHANGELOG.md)** - Release notes and version information
-- **[Audio Samples Guide](public/audio/samples/README.md)** - Information about drum samples
-
-### **Prerequisites**
-- Node.js 18+
-- npm or yarn
-- Modern web browser with Web Audio API support
-
-### **Quick Start**
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/metal-drums.git
+git clone https://github.com/WithClarity/metal-drums.git
 cd metal-drums
 
 # Install dependencies
@@ -90,104 +18,104 @@ npm install
 
 # Start development server
 npm run dev
-
-# Open in browser
-# Navigate to http://localhost:5173
 ```
 
-### **Build for Production**
+Visit `http://localhost:5173` to start creating drum patterns!
+
+## ✨ Key Features
+
+- 🎵 **98 Professional Patterns** across Metal, Post-Hardcore, Metalcore, and Jazz genres
+- 🔊 **Real Audio Samples** from high-quality drum recordings
+- 🎛️ **16-Step Sequencer** with visual feedback and velocity controls
+- ⚡ **Real-Time Performance** with keyboard shortcuts for live playing
+- 🎚️ **Professional Mixer** with per-drum controls and master effects
+- 🎼 **Musical Notation** - See your patterns rendered on drum staff notation
+- 📱 **Responsive Design** - Works on desktop, tablet, and mobile
+
+## 🎹 Live Performance
+
+Use your keyboard to play drums in real-time:
+- `Q` - Kick Drum
+- `W` - Snare
+- `E` - Hi-Hat (Closed)
+- `R` - Hi-Hat (Open)
+- `T` - Crash
+- `Y` - Ride
+- `U` - High Tom
+- `I` - Mid Tom
+- `O` - Low Tom
+
+Transport controls:
+- `SPACE` - Play/Pause
+- `S` - Stop
+- `F` - Generate Fill
+
+## 📊 Pattern Library
+
+**98 Professional Patterns** organized by genre:
+- **Metal** (30 patterns): Heavy, aggressive rhythms with double-bass patterns
+- **Post-Hardcore** (20 patterns): Dynamic builds and emotional breakdowns
+- **Metalcore** (27 patterns): Technical patterns with blast beats
+- **Jazz** (21 patterns): Swing, bebop, and Latin grooves
+
+## 🎵 Audio Samples
+
+High-quality drum samples sourced from [SampleSwap.com](https://sampleswap.com/filebrowser-new.php) - a fantastic resource for free, high-quality audio samples. All samples are royalty-free and perfect for music production.
+
+### Included Drum Kit:
+- **Pearl Kit Samples**: Professional drum kit recordings
+- **Electronic Samples**: Classic drum machine sounds
+- **Acoustic Samples**: Natural drum recordings
+- **All samples**: 44.1kHz WAV format optimized for web playback
+
+## 🛠️ Build & Deploy
+
 ```bash
-# Create production build
-npm run build
-
-# Preview production build
-npm run preview
+npm run build     # Build for production
+npm run preview   # Preview production build
+npm run lint      # Run code quality checks
 ```
 
-## 🥁 **Audio Samples Included**
+## 📖 Full Documentation
 
-This application comes with **high-quality drum samples** already included:
-- **Professional recordings** optimized for each genre
-- **Genre-specific sets** for authentic sound per style
-- **44.1kHz WAV files** for pristine audio quality
-- **Low-latency optimized** for real-time performance
+For complete documentation, advanced features, and technical details, see [DOCS.md](./DOCS.md).
 
-No additional setup required - just install and play! 🎵
+## 🎨 User Interface
 
-## 🏗️ Technology Stack
+The application features a modern, professional interface with:
+- **Sequencer Tab**: Main pattern programming interface
+- **Mixer Tab**: Professional audio mixing and effects
+- **Notation Tab**: Real-time drum staff notation
+- **Shortcuts Tab**: Keyboard reference guide
 
-- **React 18** with TypeScript
-- **Vite** for blazing fast builds
-- **Web Audio API** for professional audio
-- **Tailwind CSS** for modern styling
+## 🔧 Technology Stack
 
-For detailed technical information, see [DOCS.md](DOCS.md).
+- **React 18** with TypeScript for type-safe development
+- **Vite** for fast development and optimized builds
+- **Web Audio API** for low-latency audio playback
+- **Tailwind CSS** for responsive, modern styling
+- **Lucide React** for beautiful iconography
+
+## 📱 Cross-Platform
+
+- **Desktop**: Full-featured interface with all controls
+- **Tablet**: Touch-optimized responsive layout
+- **Mobile**: Core functionality with simplified interface
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### Third-Party Content
+
+- **Drum Samples**: Courtesy of [SampleSwap.com](https://sampleswap.com/filebrowser-new.php)
+- **Icons**: [Lucide React](https://lucide.dev/) (ISC License)
+- **Fonts**: System fonts and web-safe alternatives
 
 ---
 
-**Made with ❤️ for drummers and music producers**
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Built with ❤️ for drummers and music producers worldwide**

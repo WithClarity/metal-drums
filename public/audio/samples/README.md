@@ -1,10 +1,13 @@
-# Audio Samples Directory
+# Drum Samples Installation Guide
 
-High-quality drum samples for the Metal Drums application. The current Pearl Kit samples provide excellent sound quality for all genres.
+This directory contains the drum samples used by the Metal Drums Pattern Maker app.
 
-## Quick Sample Upgrade (Optional)
+## Current Status
+The app is currently set up with placeholder files. To get high-quality drum sounds, you'll need to download real drum samples and replace these placeholder files.
 
-### 99Sounds (Recommended)
+## Recommended Sources for Free Drum Samples
+
+### 99Sounds (Highly Recommended)
 **URL**: https://99sounds.org/drum-samples/
 - **99 Drum Samples I**: Contains 99 individual drum samples including kicks, snares, hi-hats, crashes, rides, and toms
 - **99 Drum Samples II**: Contains 110 additional drum samples with focus on kicks and snares

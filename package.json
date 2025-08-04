@@ -3,6 +3,24 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "description": "Professional web drum machine for metal, post-hardcore, metalcore, and jazz genres",
+  "author": "WithClarity",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WithClarity/metal-drums.git"
+  },
+  "homepage": "https://github.com/WithClarity/metal-drums",
+  "keywords": [
+    "drum-machine",
+    "music",
+    "audio",
+    "react",
+    "typescript",
+    "web-audio",
+    "metal",
+    "drums"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
