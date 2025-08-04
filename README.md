@@ -1,8 +1,10 @@
 # 🥁 Metal Drums - Professional Web Drum Machine
 
+**Version 1.0.0** - Production Ready Release
+
 A professional-grade drum machine web application built with React and TypeScript, featuring real drum samples, advanced performance controls, and musical notation rendering.
 
-![Metal Drums](https://img.shields.io/badge/Demo-Live-brightgreen) ![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue) ![React](https://img.shields.io/badge/React-18-61dafb) ![Vite](https://img.shields.io/badge/Vite-Latest-646cff)
+![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen) ![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue) ![React](https://img.shields.io/badge/React-18-61dafb) ![Vite](https://img.shields.io/badge/Vite-Latest-646cff) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ## 🚀 **Features**
 
