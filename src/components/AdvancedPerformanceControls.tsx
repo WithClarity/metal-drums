@@ -1,5 +1,5 @@
+import { Clipboard, Copy, Layers, Shuffle, Trash2, Zap } from 'lucide-react';
 import React from 'react';
-import { Zap, Shuffle, Layers, Copy, Clipboard, Trash2 } from 'lucide-react';
 import type { DrumType } from '../types/drum';
 
 interface AdvancedPerformanceControlsProps {
@@ -11,6 +11,7 @@ interface AdvancedPerformanceControlsProps {
   onPatternClear: () => void;
   onSavePattern?: () => void;
   onLoadPattern?: () => void;
+  onCopyToGuitarPro?: () => void;
   probability: number;
   onProbabilityChange: (value: number) => void;
   scatterIntensity: number;
@@ -30,6 +31,7 @@ export const AdvancedPerformanceControls: React.FC<AdvancedPerformanceControlsPr
   onPatternClear,
   onSavePattern,
   onLoadPattern,
+  onCopyToGuitarPro,
   probability,
   onProbabilityChange,
   scatterIntensity,
@@ -222,7 +224,21 @@ export const AdvancedPerformanceControls: React.FC<AdvancedPerformanceControlsPr
             Clear
           </button>
         </div>
-        
+
+        {/* Guitar Pro Export */}
+        {onCopyToGuitarPro && (
+          <div className="mt-3 pt-3 border-t border-gray-600">
+            <button
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold py-2.5 px-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg text-xs flex items-center justify-center gap-2"
+              onClick={onCopyToGuitarPro}
+              title="Copy pattern to clipboard in Guitar Pro format"
+            >
+              <Copy size={14} />
+              Export to Guitar Pro
+            </button>
+          </div>
+        )}
+
         {/* Save/Load buttons */}
         {(onSavePattern || onLoadPattern) && (
           <div className="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-gray-600">

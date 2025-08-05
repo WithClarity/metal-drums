@@ -1,5 +1,5 @@
+import { RefreshCw, Repeat, Sliders, Waves } from 'lucide-react';
 import { useState } from 'react';
-import { Waves, Repeat, Sliders, RefreshCw } from 'lucide-react';
 
 interface EffectsControlsProps {
   onReverbChange: (type: string, level: number, time: number, gate: number) => void;
@@ -118,11 +118,10 @@ export function EffectsControls({
             <button
               key={type.id}
               onClick={() => updateReverb({ type: type.id })}
-              className={`px-2 py-1 text-xs rounded transition-colors ${
-                reverbSettings.type === type.id
+              className={`px-2 py-1 text-xs rounded transition-colors ${reverbSettings.type === type.id
                   ? 'bg-cyan-600 text-white'
                   : 'bg-gray-600 text-gray-300 hover:bg-gray-500'
-              }`}
+                }`}
             >
               {type.name}
             </button>
@@ -181,11 +180,10 @@ export function EffectsControls({
             <button
               key={type.id}
               onClick={() => updateDelay({ type: type.id })}
-              className={`px-2 py-1 text-xs rounded transition-colors ${
-                delaySettings.type === type.id
+              className={`px-2 py-1 text-xs rounded transition-colors ${delaySettings.type === type.id
                   ? 'bg-purple-600 text-white'
                   : 'bg-gray-600 text-gray-300 hover:bg-gray-500'
-              }`}
+                }`}
             >
               {type.name}
             </button>
@@ -244,11 +242,10 @@ export function EffectsControls({
             <button
               key={type.id}
               onClick={() => updateFilter({ type: type.id })}
-              className={`px-2 py-1 text-xs rounded transition-colors ${
-                filterSettings.type === type.id
+              className={`px-2 py-1 text-xs rounded transition-colors ${filterSettings.type === type.id
                   ? 'bg-green-600 text-white'
                   : 'bg-gray-600 text-gray-300 hover:bg-gray-500'
-              }`}
+                }`}
             >
               {type.name}
             </button>
@@ -295,11 +292,10 @@ export function EffectsControls({
             <button
               key={type.id}
               onClick={() => updateDistortion({ type: type.id })}
-              className={`px-2 py-1 text-xs rounded transition-colors ${
-                distortionSettings.type === type.id
+              className={`px-2 py-1 text-xs rounded transition-colors ${distortionSettings.type === type.id
                   ? 'bg-orange-600 text-white'
                   : 'bg-gray-600 text-gray-300 hover:bg-gray-500'
-              }`}
+                }`}
             >
               {type.name}
             </button>

@@ -1,20 +1,58 @@
+import { AlertCircle, Music } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import { drumEngine } from './audio/drumEngine';
+import { AdvancedEffectsProcessor } from './components/AdvancedEffectsProcessor';
+import { AdvancedPerformanceControls } from './components/AdvancedPerformanceControls';
+import { DrumMachineSequencer } from './components/DrumMachineSequencer';
+import { DrumNotation } from './components/DrumNotation';
+import { DrumKitSelector } from './components/DrumKitSelector';
+import { GrooveControls } from './components/GrooveControls';
+import { KeyboardShortcuts } from './components/KeyboardShortcuts';
+import { PatternSelector } from './components/PatternSelector';
+import { ProfessionalMixer } from './components/ProfessionalMixer';
+import { TransportControls } from './components/TransportControls';
 import { useDrumMachine } from './hooks/useDrumMachine';
 import { useKeyboardControls } from './hooks/useKeyboardControls';
 import type { DrumType } from './types/drum';
-import { DrumMachineSequencer } from './components/DrumMachineSequencer';
-import { TransportControls } from './components/TransportControls';
-import { PatternSelector } from './components/PatternSelector';
-import { GrooveControls } from './components/GrooveControls';
-import { MixerControls } from './components/MixerControls';
-import { EffectsControls } from './components/EffectsControls';
-import { AdvancedPerformanceControls } from './components/AdvancedPerformanceControls';
-import { DrumNotation } from './components/DrumNotation';
-import { KeyboardShortcuts } from './components/KeyboardShortcuts';
-import { AlertCircle, Music } from 'lucide-react';
-import { useState } from 'react';
+
+// Add effects state interface
+interface EffectConfig {
+  enabled: boolean;
+  wet: number;
+  params: Record<string, number | string>;
+}
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'mixer' | 'effects' | 'performance' | 'notation' | 'shortcuts'>('performance');
+  const [activeTab, setActiveTab] = useState<'mixer' | 'effects' | 'performance' | 'notation' | 'shortcuts' | 'kits'>('performance');
+
+  // Effects state
+  const [drumEffects, setDrumEffects] = useState(() => drumEngine.getDrumEffectsState());
+  const [masterEffects, setMasterEffects] = useState(() => drumEngine.getMasterEffectsState());
+
+  // Mixer state
+  const [drumChannels, setDrumChannels] = useState<Record<DrumType, {
+    volume: number;
+    pan: number;
+    mute: boolean;
+    solo: boolean;
+    output: number;
+  }>>(() => {
+    const channels = {} as Record<DrumType, any>;
+    const drumTypes: DrumType[] = ['kick', 'snare', 'hihat', 'openhat', 'crash', 'ride', 'tom1', 'tom2', 'tom3'];
+    drumTypes.forEach(drum => {
+      channels[drum] = {
+        volume: 80,
+        pan: 0,
+        mute: false,
+        solo: false,
+        output: 1
+      };
+    });
+    return channels;
+  });
+  const [masterPan, setMasterPan] = useState(0);
+  const [soloActive, setSoloActive] = useState(false);
 
   const {
     isPlaying,
@@ -60,7 +98,19 @@ function App() {
     setDrumVolume,
     setDrumMute,
     setDrumSolo,
+
+    // Drum kit selection
+    currentKit,
+    availableKits,
+    setDrumKit,
   } = useDrumMachine();
+
+  // Verify analytics is loaded
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      console.log('🔍 Metal Drums Analytics: Ready to track user engagement');
+    }
+  }, []);
 
   // Set up keyboard controls
   useKeyboardControls({
@@ -87,41 +137,58 @@ function App() {
     console.log('Load pattern');
   };
 
-  const handleMixerVolumeChange = (drum: string, volume: number) => {
-    setDrumVolume(drum as DrumType, volume);
+  // Advanced effects handlers
+  const handleDrumEffectChange = (drum: DrumType, effect: string, config: Partial<EffectConfig>) => {
+    drumEngine.setDrumEffect(drum, effect, config);
+    setDrumEffects(drumEngine.getDrumEffectsState());
   };
 
-  const handleMixerPanChange = (drum: string, pan: number) => {
-    // TODO: Implement per-drum pan control
-    console.log('Mixer pan change:', drum, pan);
+  const handleMasterEffectChange = (effect: string, config: Partial<EffectConfig>) => {
+    drumEngine.setMasterEffect(effect, config);
+    setMasterEffects(drumEngine.getMasterEffectsState());
   };
 
-  const handleMixerMute = (drum: string, muted: boolean) => {
-    setDrumMute(drum as DrumType, muted);
+  // Guitar Pro clipboard functionality
+  const handleCopyToGuitarPro = async () => {
+    if (!pattern) return;
+
+    try {
+      const success = await drumEngine.copyToClipboard();
+      if (success) {
+        // Show success notification (could add a toast here)
+        console.log('Pattern copied to clipboard in Guitar Pro format!');
+      }
+    } catch (error) {
+      console.error('Failed to copy pattern:', error);
+    }
   };
 
-  const handleMixerSolo = (drum: string, soloed: boolean) => {
-    setDrumSolo(drum as DrumType, soloed);
+  // Professional mixer channel handler
+  const handleChannelChange = (drum: DrumType, config: Partial<typeof drumChannels[DrumType]>) => {
+    setDrumChannels(prev => ({
+      ...prev,
+      [drum]: { ...prev[drum], ...config }
+    }));
+
+    // Apply changes to audio engine
+    if (config.volume !== undefined) {
+      setDrumVolume(drum, config.volume / 100);
+    }
+    if (config.mute !== undefined) {
+      setDrumMute(drum, config.mute);
+    }
+    if (config.solo !== undefined) {
+      setDrumSolo(drum, config.solo);
+      // Update solo active state
+      const newChannels = { ...drumChannels, [drum]: { ...drumChannels[drum], ...config } };
+      const anySolo = Object.values(newChannels).some(ch => ch.solo);
+      setSoloActive(anySolo);
+    }
   };
 
-  const handleEffectsReverb = (type: string, level: number, time: number, gate: number) => {
-    // TODO: Implement reverb effect
-    console.log('Reverb:', type, level, time, gate);
-  };
-
-  const handleEffectsDelay = (type: string, level: number, time: number, feedback: number) => {
-    // TODO: Implement delay effect
-    console.log('Delay:', type, level, time, feedback);
-  };
-
-  const handleEffectsFilter = (type: string, frequency: number, resonance: number) => {
-    // TODO: Implement filter effect
-    console.log('Filter:', type, frequency, resonance);
-  };
-
-  const handleEffectsDistortion = (amount: number, type: string) => {
-    // TODO: Implement distortion effect
-    console.log('Distortion:', amount, type);
+  const handleMasterPanChange = (pan: number) => {
+    setMasterPan(pan);
+    // TODO: Apply master pan to audio engine
   };
 
   if (error) {
@@ -182,10 +249,10 @@ function App() {
             </div>
           </header>
 
-          {/* Main content */}
-          <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+          {/* Main content with improved responsive grid */}
+          <div className="grid grid-cols-1 xl:grid-cols-6 gap-6">
             {/* Left Sidebar - Main Controls */}
-            <div className="lg:col-span-1 xl:col-span-1 space-y-6">
+            <div className="xl:col-span-1 space-y-6 order-2 xl:order-1">
               <TransportControls
                 isPlaying={isPlaying}
                 isLoading={isLoading}
@@ -219,8 +286,8 @@ function App() {
               />
             </div>
 
-            {/* Main Grid - Sequencer */}
-            <div className="lg:col-span-2 xl:col-span-3">
+            {/* Main Grid - Sequencer (Featured prominently) */}
+            <div className="xl:col-span-3 order-1 xl:order-2">
               <DrumMachineSequencer
                 pattern={pattern}
                 currentStep={currentStep}
@@ -231,19 +298,18 @@ function App() {
             </div>
 
             {/* Right Sidebar - Professional Controls */}
-            <div className="lg:col-span-1 xl:col-span-2 space-y-6">
+            <div className="xl:col-span-2 space-y-6 order-3">
               {/* Tab Navigation */}
               <div className="bg-gradient-to-r from-gray-800/90 to-gray-900/90 backdrop-blur-sm rounded-xl p-6 border border-gray-700 shadow-2xl">
                 <div className="flex gap-2 mb-6 p-1 bg-gray-700/50 rounded-lg">
-                  {(['performance', 'mixer', 'effects', 'notation', 'shortcuts'] as const).map((tab) => (
+                  {(['performance', 'mixer', 'effects', 'kits', 'notation', 'shortcuts'] as const).map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
-                      className={`flex-1 px-3 py-2.5 text-sm font-semibold rounded-md transition-all duration-200 ${
-                        activeTab === tab
+                      className={`flex-1 px-3 py-2.5 text-sm font-semibold rounded-md transition-all duration-200 ${activeTab === tab
                           ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg transform scale-[1.02]'
                           : 'bg-transparent text-gray-300 hover:bg-gray-600/50 hover:text-white'
-                      }`}
+                        }`}
                     >
                       {tab.charAt(0).toUpperCase() + tab.slice(1)}
                     </button>
@@ -261,6 +327,7 @@ function App() {
                     onPatternClear={clearPattern}
                     onSavePattern={handleSavePattern}
                     onLoadPattern={handleLoadPattern}
+                    onCopyToGuitarPro={handleCopyToGuitarPro}
                     probability={masterProbability}
                     onProbabilityChange={setMasterProbability}
                     scatterIntensity={scatterIntensity}
@@ -273,22 +340,32 @@ function App() {
                 )}
 
                 {activeTab === 'mixer' && (
-                  <MixerControls
-                    onVolumeChange={handleMixerVolumeChange}
-                    onPanChange={handleMixerPanChange}
-                    onMute={handleMixerMute}
-                    onSolo={handleMixerSolo}
-                    onMasterVolumeChange={setVolume}
+                  <ProfessionalMixer
+                    drumChannels={drumChannels}
+                    onChannelChange={handleChannelChange}
                     masterVolume={volume}
+                    onMasterVolumeChange={setVolume}
+                    masterPan={masterPan}
+                    onMasterPanChange={handleMasterPanChange}
+                    soloActive={soloActive}
                   />
                 )}
 
                 {activeTab === 'effects' && (
-                  <EffectsControls
-                    onReverbChange={handleEffectsReverb}
-                    onDelayChange={handleEffectsDelay}
-                    onFilterChange={handleEffectsFilter}
-                    onDistortionChange={handleEffectsDistortion}
+                  <AdvancedEffectsProcessor
+                    drumEffects={drumEffects}
+                    masterEffects={masterEffects}
+                    onDrumEffectChange={handleDrumEffectChange}
+                    onMasterEffectChange={handleMasterEffectChange}
+                  />
+                )}
+
+                {activeTab === 'kits' && (
+                  <DrumKitSelector
+                    currentKit={currentKit}
+                    availableKits={availableKits}
+                    onKitChange={setDrumKit}
+                    currentGenre={currentGenre}
                   />
                 )}
 
@@ -338,6 +415,7 @@ function App() {
           </footer>
         </div>
       </div>
+      <Analytics />
     </div>
   );
 }

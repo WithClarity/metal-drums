@@ -95,6 +95,16 @@ The application features a modern, professional interface with:
 - **Web Audio API** for low-latency audio playback
 - **Tailwind CSS** for responsive, modern styling
 - **Lucide React** for beautiful iconography
+- **Vercel Analytics** for visitor tracking and insights
+
+## 📊 Analytics & Deployment
+
+The app includes Vercel Analytics for tracking:
+- Page views and visitor statistics
+- User engagement metrics
+- Performance monitoring
+
+Ready for deployment on Vercel with optimized build configuration.
 
 ## 📱 Cross-Platform
 

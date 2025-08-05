@@ -86,7 +86,7 @@ This is the first major release of Metal Drums, a professional web drum machine 
 ### 🛠️ **Technical Specifications**
 
 - **Framework**: React 18 with TypeScript
-- **Build Tool**: Vite 
+- **Build Tool**: Vite
 - **Styling**: Tailwind CSS
 - **Audio**: Web Audio API
 - **Icons**: Lucide React

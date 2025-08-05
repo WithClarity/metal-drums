@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Pattern, DrumType } from '../types/drum';
+import type { DrumType, Pattern } from '../types/drum';
 
 interface DrumNotationProps {
   pattern: Pattern;

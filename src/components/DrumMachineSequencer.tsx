@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { DrumType, Step, Pattern } from '../types/drum';
+import type { DrumType, Pattern, Step } from '../types/drum';
 import { defaultDrumTypes } from '../types/drum';
 
 interface DrumMachineSequencerProps {
@@ -10,16 +10,61 @@ interface DrumMachineSequencerProps {
   onDrumTrigger: (drumType: DrumType) => Promise<void>;
 }
 
-const drumInfo: Record<DrumType, { label: string; color: string; key: string }> = {
-  kick: { label: 'Bass Drum', color: 'bg-red-600 hover:bg-red-500', key: 'BD' },
-  snare: { label: 'Snare Drum', color: 'bg-blue-600 hover:bg-blue-500', key: 'SD' },
-  hihat: { label: 'Hi-Hat Closed', color: 'bg-yellow-600 hover:bg-yellow-500', key: 'HH' },
-  openhat: { label: 'Hi-Hat Open', color: 'bg-yellow-500 hover:bg-yellow-400', key: 'OH' },
-  crash: { label: 'Crash Cymbal', color: 'bg-orange-600 hover:bg-orange-500', key: 'CR' },
-  ride: { label: 'Ride Cymbal', color: 'bg-purple-600 hover:bg-purple-500', key: 'RD' },
-  tom1: { label: 'High Tom', color: 'bg-green-600 hover:bg-green-500', key: 'HT' },
-  tom2: { label: 'Mid Tom', color: 'bg-green-700 hover:bg-green-600', key: 'MT' },
-  tom3: { label: 'Low Tom', color: 'bg-green-800 hover:bg-green-700', key: 'LT' },
+const drumInfo: Record<DrumType, { label: string; color: string; key: string; gradient: string }> = {
+  kick: {
+    label: 'Bass Drum',
+    color: 'bg-red-600 hover:bg-red-500',
+    key: 'BD',
+    gradient: 'from-red-600 to-red-800'
+  },
+  snare: {
+    label: 'Snare Drum',
+    color: 'bg-blue-600 hover:bg-blue-500',
+    key: 'SD',
+    gradient: 'from-blue-600 to-blue-800'
+  },
+  hihat: {
+    label: 'Hi-Hat Closed',
+    color: 'bg-yellow-600 hover:bg-yellow-500',
+    key: 'HH',
+    gradient: 'from-yellow-600 to-yellow-800'
+  },
+  openhat: {
+    label: 'Hi-Hat Open',
+    color: 'bg-yellow-500 hover:bg-yellow-400',
+    key: 'OH',
+    gradient: 'from-yellow-500 to-yellow-700'
+  },
+  crash: {
+    label: 'Crash Cymbal',
+    color: 'bg-orange-600 hover:bg-orange-500',
+    key: 'CR',
+    gradient: 'from-orange-600 to-orange-800'
+  },
+  ride: {
+    label: 'Ride Cymbal',
+    color: 'bg-purple-600 hover:bg-purple-500',
+    key: 'RD',
+    gradient: 'from-purple-600 to-purple-800'
+  },
+  tom1: {
+    label: 'High Tom',
+    color: 'bg-green-600 hover:bg-green-500',
+    key: 'HT',
+    gradient: 'from-green-600 to-green-800'
+  },
+  tom2: {
+    label: 'Mid Tom',
+    color: 'bg-green-700 hover:bg-green-600',
+    key: 'MT',
+    gradient: 'from-green-700 to-green-900'
+  },
+  tom3: {
+    label: 'Low Tom',
+    color: 'bg-green-800 hover:bg-green-700',
+    key: 'LT',
+    gradient: 'from-green-800 to-gray-900'
+  },
 };
 
 export function DrumMachineSequencer({
@@ -65,105 +110,89 @@ export function DrumMachineSequencer({
     }
   };
 
-  const getStepIntensity = (stepData: Step) => {
-    if (!stepData.active) return 'bg-gray-800 border-gray-600 text-gray-500';
-
-    // Simplified color scheme - just two main states for better clarity
-    if (stepData.accent) {
-      return 'bg-red-500 border-red-400 text-white shadow-lg';
-    }
-
-    // Active step - bright cyan for better visibility
-    return 'bg-cyan-500 border-cyan-400 text-white shadow-md';
-  };
-
-  const getVelocityBar = (velocity: number) => {
-    const height = Math.round((velocity / 127) * 100);
-    return (
-      <div className="absolute bottom-0 left-0 w-full bg-cyan-400 opacity-60 transition-all duration-200"
-           style={{ height: `${height}%` }} />
-    );
-  };
-
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 shadow-2xl border border-gray-700">
-      {/* Header */}
+    <div className="card-pro rounded-xl p-6 fade-in">
+      {/* Enhanced Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-white">Professional Drum Machine</h2>
-          <p className="text-gray-400 text-sm">
-            Pattern: {pattern?.name || 'None'} • {steps} Steps • {pattern?.bpm || 120} BPM
-          </p>
+          <h2 className="text-2xl font-bold text-gradient mb-2">Professional Drum Machine</h2>
+          <div className="flex items-center gap-4 text-sm text-gray-400">
+            <span className="px-3 py-1 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-500/30">
+              Pattern: {pattern?.name || 'None'}
+            </span>
+            <span className="px-3 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full border border-purple-500/30">
+              {steps} Steps
+            </span>
+            <span className="px-3 py-1 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full border border-green-500/30">
+              {pattern?.bpm || 120} BPM
+            </span>
+          </div>
         </div>
 
-        {/* Edit Mode Selector */}
-        <div className="flex bg-gray-800 rounded-lg p-1">
+        {/* Enhanced Edit Mode Selector */}
+        <div className="flex bg-gradient-to-r from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-lg p-1 border border-gray-600/50">
           {[
-            { mode: 'normal' as const, label: 'Edit', desc: 'Toggle steps' },
-            { mode: 'velocity' as const, label: 'Velocity', desc: 'Step volume' },
-            { mode: 'accent' as const, label: 'Accent', desc: 'Emphasis' }
-          ].map(({ mode, label, desc }) => (
+            { mode: 'normal' as const, label: 'Edit', desc: 'Toggle steps', icon: '✎' },
+            { mode: 'velocity' as const, label: 'Velocity', desc: 'Step volume', icon: '♪' },
+            { mode: 'accent' as const, label: 'Accent', desc: 'Emphasis', icon: '⚡' }
+          ].map(({ mode, label, desc, icon }) => (
             <button
               key={mode}
               onClick={() => setEditMode(mode)}
-              className={`px-3 py-2 rounded-md text-xs font-medium transition-all ${
-                editMode === mode
-                  ? 'bg-cyan-600 text-white shadow-md'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-700'
-              }`}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 flex items-center gap-2 ${editMode === mode
+                  ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg transform scale-105'
+                  : 'text-gray-300 hover:bg-gray-700/50 hover:text-white'
+                }`}
               title={desc}
             >
-              {label}
+              <span className="text-lg">{icon}</span>
+              <span>{label}</span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Transport Bar - Step indicators */}
-      <div className="mb-4">
-        <div className="grid grid-cols-[120px_repeat(16,1fr)] gap-1">
-          <div className="text-xs text-gray-500 text-center font-mono">STEP</div>
-          {Array.from({ length: steps }, (_, i) => (
-            <div
-              key={i}
-              className={`h-6 flex items-center justify-center text-xs font-mono font-bold rounded transition-all duration-150 ${
-                i === currentStep
-                  ? 'bg-yellow-400 text-black shadow-md animate-pulse'
-                  : 'bg-gray-700 text-gray-300'
-              } ${i % 4 === 0 ? 'border-l-2 border-l-yellow-400' : ''}`}
-            >
-              {i + 1}
-            </div>
-          ))}
+      {/* Step Number Headers with Enhanced Design */}
+      <div className="grid gap-2 mb-4" style={{ gridTemplateColumns: '140px repeat(16, 1fr)' }}>
+        {/* Drum Label Column */}
+        <div className="text-center">
+          <span className="text-sm font-bold text-gray-400 uppercase tracking-wider">Drums</span>
         </div>
+
+        {/* Step Numbers */}
+        {Array.from({ length: steps }, (_, i) => (
+          <div key={i} className="text-center">
+            <span className={`text-sm font-mono font-bold ${i === currentStep ? 'text-cyan-400 animate-pulse' : 'text-gray-500'
+              } ${i % 4 === 0 ? 'text-yellow-400' : ''}`}>
+              {i + 1}
+            </span>
+            {i % 4 === 0 && (
+              <div className="w-full h-0.5 bg-gradient-to-r from-yellow-400 to-orange-400 mt-1 rounded-full"></div>
+            )}
+          </div>
+        ))}
       </div>
 
-      {/* Drum Tracks */}
-      <div className="space-y-1">
+      {/* Enhanced Drum Grid */}
+      <div className="space-y-2">
         {defaultDrumTypes.map((drumType) => (
-          <div key={drumType} className="grid grid-cols-[120px_repeat(16,1fr)] gap-1 items-center">
-            {/* Drum Label/Trigger */}
+          <div key={drumType} className="grid gap-2 items-center" style={{ gridTemplateColumns: '140px repeat(16, 1fr)' }}>
+            {/* Enhanced Drum Button */}
             <button
               onClick={async () => {
+                await onDrumTrigger(drumType);
                 setSelectedDrum(drumType);
-                try {
-                  await onDrumTrigger(drumType);
-                } catch (error) {
-                  console.error('Failed to trigger drum:', error);
-                }
               }}
-              className={`h-12 rounded-lg text-sm font-bold transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg ${
-                drumInfo[drumType].color
-              } ${
-                selectedDrum === drumType ? 'ring-2 ring-cyan-400' : ''
-              } text-white border border-white/20 flex flex-col justify-center items-center`}
-              title={drumInfo[drumType].label}
+              className={`btn-pro h-14 rounded-xl text-sm font-bold bg-gradient-to-r ${drumInfo[drumType].gradient
+                } ${selectedDrum === drumType ? 'ring-2 ring-cyan-400 ring-offset-2 ring-offset-gray-900' : ''
+                } text-white border border-white/20 flex flex-col justify-center items-center shadow-lg hover:shadow-2xl transform transition-all duration-200 hover:scale-105`}
+              title={`${drumInfo[drumType].label} - Click to trigger`}
             >
-              <span className="text-lg">{drumInfo[drumType].key}</span>
-              <span className="text-xs opacity-75">{drumType.toUpperCase()}</span>
+              <span className="text-xl font-black">{drumInfo[drumType].key}</span>
+              <span className="text-xs opacity-75 uppercase tracking-wide font-semibold">{drumType}</span>
             </button>
 
-            {/* Step Buttons */}
+            {/* Enhanced Step Buttons */}
             {Array.from({ length: steps }, (_, i) => {
               const stepData = getStepData(drumType, i);
               const isCurrentStep = i === currentStep;
@@ -173,40 +202,50 @@ export function DrumMachineSequencer({
                 <button
                   key={i}
                   onClick={() => handleStepClick(drumType, i)}
-                  className={`h-12 w-full rounded-md border-2 font-mono text-xs font-bold relative overflow-hidden group transition-all duration-150 ${
-                    getStepIntensity(stepData)
-                  } ${isCurrentStep ? 'ring-2 ring-yellow-400 ring-opacity-90 animate-pulse' : ''} ${
-                    isDownbeat ? 'border-l-yellow-400 border-l-4' : ''
-                  }`}
+                  className={`step-button h-14 w-full rounded-xl border-2 font-mono text-sm font-bold relative overflow-hidden transition-all duration-200 ${stepData.active
+                      ? stepData.accent
+                        ? 'bg-gradient-to-br from-red-500 to-red-700 border-red-400 text-white shadow-lg active animate-pulse'
+                        : 'bg-gradient-to-br from-cyan-500 to-cyan-700 border-cyan-400 text-white shadow-md active'
+                      : 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-600 text-gray-500 hover:border-gray-500 hover:bg-gray-700'
+                    } ${isCurrentStep ? 'current ring-2 ring-yellow-400 ring-opacity-75 animate-pulse' : ''
+                    } ${isDownbeat ? 'ring-1 ring-yellow-400/30' : ''
+                    }`}
                   title={`Step ${i + 1}: ${stepData.active ? `Velocity ${stepData.velocity}${stepData.accent ? ' (Accent)' : ''}` : 'Off'}`}
                 >
-                  {/* Velocity bar */}
-                  {stepData.active && editMode === 'velocity' && getVelocityBar(stepData.velocity)}
+                  {/* Velocity visualization */}
+                  {stepData.active && editMode === 'velocity' && (
+                    <div
+                      className="absolute bottom-0 left-0 w-full bg-cyan-400/60 transition-all duration-300"
+                      style={{ height: `${Math.round((stepData.velocity / 127) * 100)}%` }}
+                    />
+                  )}
 
-                  {/* Current step indicator */}
+                  {/* Current step overlay */}
                   {isCurrentStep && (
-                    <div className="absolute inset-0 bg-yellow-400 opacity-30" />
+                    <div className="absolute inset-0 bg-yellow-400/20 animate-pulse" />
+                  )}
+
+                  {/* Downbeat indicator */}
+                  {isDownbeat && (
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 to-orange-400" />
                   )}
 
                   {/* Step content */}
                   <div className="relative z-10 flex items-center justify-center h-full">
                     {stepData.active ? (
                       <div className="flex flex-col items-center">
-                        <span className="text-xl font-bold">●</span>
+                        <span className="text-2xl font-bold drop-shadow-lg">●</span>
                         {editMode === 'velocity' && (
-                          <span className="text-xs font-mono">{stepData.velocity}</span>
+                          <span className="text-xs font-mono font-bold mt-1">{stepData.velocity}</span>
                         )}
                         {stepData.accent && editMode === 'accent' && (
-                          <span className="text-xs font-bold">!</span>
+                          <span className="text-sm font-bold">⚡</span>
                         )}
                       </div>
                     ) : (
-                      <span className="text-xl opacity-40">○</span>
+                      <span className="text-gray-600 text-2xl">○</span>
                     )}
                   </div>
-
-                  {/* Hover effect */}
-                  <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-200" />
                 </button>
               );
             })}
@@ -214,20 +253,20 @@ export function DrumMachineSequencer({
         ))}
       </div>
 
-      {/* Legend */}
-      <div className="mt-6 pt-4 border-t border-gray-700">
-        <div className="grid grid-cols-2 gap-4 text-xs text-gray-400">
-          <div>
-            <p className="font-semibold text-gray-300 mb-2">Controls:</p>
-            <p>● Click steps to toggle on/off</p>
-            <p>● Use mode buttons to edit velocity/accent</p>
-            <p>● Click drum names to trigger sounds</p>
-          </div>
-          <div>
-            <p className="font-semibold text-gray-300 mb-2">Legend:</p>
-            <p><span className="text-yellow-400">●</span> Current playing step</p>
-            <p><span className="text-red-400">●</span> Accent (emphasized)</p>
-            <p><span className="text-yellow-400">|</span> Downbeat (1, 5, 9, 13)</p>
+      {/* Enhanced Edit Mode Instructions */}
+      <div className="mt-6 p-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-lg border border-gray-700/50">
+        <div className="text-sm text-gray-300">
+          <strong className="text-cyan-400">Current Mode: {editMode.charAt(0).toUpperCase() + editMode.slice(1)}</strong>
+          <div className="mt-2 space-y-1 text-xs">
+            {editMode === 'normal' && (
+              <p>💡 Click steps to toggle on/off • Click drum buttons to trigger sounds</p>
+            )}
+            {editMode === 'velocity' && (
+              <p>💡 Click steps to cycle through velocity levels (soft → medium → loud → off)</p>
+            )}
+            {editMode === 'accent' && (
+              <p>💡 Click active steps to add/remove accent emphasis</p>
+            )}
           </div>
         </div>
       </div>

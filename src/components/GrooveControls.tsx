@@ -1,5 +1,5 @@
+import { Clock, Settings, Shuffle, Volume } from 'lucide-react';
 import { useState } from 'react';
-import { Settings, Shuffle, Clock, Volume } from 'lucide-react';
 
 interface GrooveControlsProps {
   swing: number;

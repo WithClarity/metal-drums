@@ -1,5 +1,5 @@
+import { Clipboard, Copy, Keyboard, Music, Play, RotateCcw, Shuffle, Square } from 'lucide-react';
 import React from 'react';
-import { Keyboard, Music, Play, Square, RotateCcw, Shuffle, Copy, Clipboard } from 'lucide-react';
 
 export const KeyboardShortcuts: React.FC = () => {
   const drumKeys = [

@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { drumEngine } from '../audio/drumEngine';
-import type { Pattern, DrumType, Genre, Step } from '../types/drum';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { drumEngine, type DrumKit } from '../audio/drumEngine';
+import type { DrumType, Genre, Pattern, Step } from '../types/drum';
 import { genrePresets } from '../types/drum';
 
 export interface UseDrumMachineReturn {
@@ -21,6 +21,11 @@ export interface UseDrumMachineReturn {
   scatterIntensity: number;
   autoFillInterval: number;
   isRecordingMotion: boolean;
+
+  // Drum kit selection
+  currentKit: DrumKit;
+  availableKits: DrumKit[];
+  setDrumKit: (kitId: string) => Promise<void>;
 
   // Actions
   play: () => Promise<void>;
@@ -87,6 +92,9 @@ export function useDrumMachine(): UseDrumMachineReturn {
   const [autoFillInterval, setAutoFillIntervalState] = useState(0);
   const [isRecordingMotion, setIsRecordingMotion] = useState(false);
   const [copiedPattern, setCopiedPattern] = useState<Pattern | null>(null);
+
+  const [currentKit, setCurrentKit] = useState<DrumKit>(() => drumEngine.getCurrentKit());
+  const [availableKits] = useState<DrumKit[]>(() => drumEngine.getAvailableKits());
 
   const isInitialized = useRef(false);
 
@@ -398,9 +406,90 @@ export function useDrumMachine(): UseDrumMachineReturn {
   }, []);
 
   const triggerFill = useCallback((fillType: 'auto' | 'manual', patternNumber?: number) => {
-    // TODO: Implement fill patterns
-    console.log('Fill triggered:', fillType, patternNumber);
-  }, []);
+    if (!pattern) return;
+
+    const fillPatterns = {
+      kick: [
+        [false, false, true, false, false, false, true, false, false, false, true, false, true, true, true, true], // Simple fill
+        [true, false, true, false, true, false, true, false, true, false, true, false, true, true, true, true], // Kick emphasis
+        [false, false, false, false, false, false, false, false, true, true, false, true, true, false, true, true] // End fill
+      ],
+      snare: [
+        [false, false, false, false, true, false, false, false, false, false, false, false, true, true, true, true], // Basic snare fill
+        [false, false, true, false, true, false, true, false, false, false, true, false, true, false, true, true], // Complex snare
+        [false, false, false, false, false, false, false, false, true, false, true, false, true, true, true, true] // Roll
+      ],
+      hihat: [
+        [true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false], // First half
+        [false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true], // Second half
+        [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false] // Steady
+      ],
+      tom1: [
+        [false, false, false, false, false, false, false, false, false, false, true, false, true, false, true, false], // Tom cascade start
+        [false, false, false, false, false, false, false, false, true, false, false, false, true, false, false, false], // Accent hits
+        [false, false, false, false, false, false, false, false, false, true, false, true, false, true, false, true] // Rolling
+      ],
+      tom2: [
+        [false, false, false, false, false, false, false, false, false, false, false, true, false, true, false, true], // Mid cascade
+        [false, false, false, false, false, false, false, false, false, true, false, false, false, true, false, false], // Sparse hits
+        [false, false, false, false, false, false, false, false, true, false, true, false, true, false, true, false] // Regular
+      ],
+      tom3: [
+        [false, false, false, false, false, false, false, false, false, false, false, false, true, false, true, true], // Low end
+        [false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, false], // Floor emphasis
+        [false, false, false, false, false, false, false, false, false, true, false, true, false, true, false, true] // Rumble
+      ],
+      crash: [
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true], // End crash
+        [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true], // Start/end
+        [false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, true] // Mid/end
+      ],
+      ride: [
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false], // Silent
+        [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false], // Quarter notes
+        [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false] // Eighth notes
+      ],
+      openhat: [
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false], // Accent
+        [false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false], // Mid accent
+        [false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, false] // Sparse
+      ]
+    };
+
+    const newPattern = { ...pattern };
+    const fillIndex = patternNumber !== undefined ? patternNumber % 3 : Math.floor(Math.random() * 3);
+
+    // Apply fill patterns to specific drums based on type
+    if (fillType === 'auto') {
+      // Automatic fill - use toms and snare primarily
+      const fillDrums: DrumType[] = ['tom1', 'tom2', 'tom3', 'snare', 'crash'];
+      fillDrums.forEach(drumType => {
+        if (fillPatterns[drumType] && fillPatterns[drumType][fillIndex]) {
+          newPattern.beats[drumType] = fillPatterns[drumType][fillIndex].map((active) => ({
+            active,
+            velocity: active ? Math.floor(Math.random() * 30) + 95 : 100, // High velocity for fills
+            accent: active && Math.random() > 0.7 // 30% chance of accent
+          }));
+        }
+      });
+    } else {
+      // Manual fill - apply to all drums
+      Object.keys(fillPatterns).forEach(drumType => {
+        const patterns = fillPatterns[drumType as DrumType];
+        if (patterns && patterns[fillIndex]) {
+          newPattern.beats[drumType as DrumType] = patterns[fillIndex].map((active) => ({
+            active,
+            velocity: active ? Math.floor(Math.random() * 30) + 95 : 100,
+            accent: active && Math.random() > 0.8 // 20% chance of accent
+          }));
+        }
+      });
+    }
+
+    console.log(`Fill triggered: ${fillType} (pattern ${fillIndex})`);
+    setPattern(newPattern);
+    drumEngine.setPattern(newPattern);
+  }, [pattern]);
 
   const randomizeDrums = useCallback((drums: DrumType[], intensity: number) => {
     if (!pattern) return;
@@ -463,6 +552,18 @@ export function useDrumMachine(): UseDrumMachineReturn {
     drumEngine.setDrumSolo(drumType, soloed);
   }, []);
 
+  const setDrumKit = useCallback(async (kitId: string) => {
+    try {
+      await drumEngine.setDrumKit(kitId);
+      const newKit = drumEngine.getCurrentKit();
+      setCurrentKit(newKit);
+      console.log(`Drum kit changed to: ${newKit.name}`);
+    } catch (error) {
+      console.error('Failed to change drum kit:', error);
+      setError('Failed to load drum kit');
+    }
+  }, []);
+
   return {
     isPlaying,
     currentStep,
@@ -481,6 +582,10 @@ export function useDrumMachine(): UseDrumMachineReturn {
     scatterIntensity,
     autoFillInterval,
     isRecordingMotion,
+
+    // Drum kit selection
+    currentKit,
+    availableKits,
 
     // Actions
     play,
@@ -525,5 +630,8 @@ export function useDrumMachine(): UseDrumMachineReturn {
     loadPresetPattern,
     getGenrePatterns,
     getAllPatterns,
+
+    // Drum kit
+    setDrumKit,
   };
 }

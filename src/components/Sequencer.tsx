@@ -52,11 +52,10 @@ export function Sequencer({ pattern, currentStep, onStepToggle, onDrumTrigger }:
         {Array.from({ length: steps }, (_, i) => (
           <div
             key={i}
-            className={`h-8 flex items-center justify-center text-xs font-mono font-bold rounded-t-md border-b-2 transition-all duration-150 ${
-              i === currentStep
+            className={`h-8 flex items-center justify-center text-xs font-mono font-bold rounded-t-md border-b-2 transition-all duration-150 ${i === currentStep
                 ? 'bg-cyan-500 text-black border-cyan-300 shadow-md'
                 : 'bg-gray-700 text-gray-300 border-gray-600'
-            } ${i % 4 === 0 ? 'border-l-2 border-l-cyan-400' : ''}`}
+              } ${i % 4 === 0 ? 'border-l-2 border-l-cyan-400' : ''}`}
           >
             {i + 1}
           </div>
@@ -89,13 +88,11 @@ export function Sequencer({ pattern, currentStep, onStepToggle, onDrumTrigger }:
                 <button
                   key={i}
                   onClick={() => onStepToggle(drumType, i)}
-                  className={`h-10 w-full rounded-md transition-all duration-150 border-2 font-mono text-xs font-bold relative overflow-hidden group ${
-                    isActive
+                  className={`h-10 w-full rounded-md transition-all duration-150 border-2 font-mono text-xs font-bold relative overflow-hidden group ${isActive
                       ? 'bg-cyan-400 text-black border-cyan-300 shadow-lg shadow-cyan-500/25'
                       : 'bg-gray-800 text-gray-400 border-gray-600 hover:bg-gray-700 hover:border-gray-500'
-                  } ${isCurrentStep ? 'ring-2 ring-cyan-400 ring-opacity-75' : ''} ${
-                    isDownbeat ? 'border-l-cyan-400 border-l-4' : ''
-                  }`}
+                    } ${isCurrentStep ? 'ring-2 ring-cyan-400 ring-opacity-75' : ''} ${isDownbeat ? 'border-l-cyan-400 border-l-4' : ''
+                    }`}
                 >
                   {/* Active step indicator */}
                   {isActive && (

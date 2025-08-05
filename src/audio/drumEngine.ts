@@ -1,17 +1,122 @@
-import type { Pattern, DrumType, DrumSample, Genre } from '../types/drum';
+import type { DrumSample, DrumType, Genre, Pattern } from '../types/drum';
+
+// Define drum kit presets
+export interface DrumKit {
+  id: string;
+  name: string;
+  description: string;
+  genre: Genre[];
+  samples: Record<DrumType, string>;
+}
+
+// Available drum kits
+export const DRUM_KITS: DrumKit[] = [
+  {
+    id: 'pearl',
+    name: 'Pearl Studio Kit',
+    description: 'Clean, professional studio sounds',
+    genre: ['jazz', 'metal', 'metalcore', 'post-hardcore'],
+    samples: {
+      kick: '/audio/samples/pearlkit-kick.wav',
+      snare: '/audio/samples/pearlkit-snare1.wav',
+      hihat: '/audio/samples/pearlkit-hihat.wav',
+      openhat: '/audio/samples/pearlkit-hihatO.wav',
+      crash: '/audio/samples/pearlkit-ridecrash.wav',
+      ride: '/audio/samples/pearlkit-ride1.wav',
+      tom1: '/audio/samples/pearlkit-hitom1.wav',
+      tom2: '/audio/samples/pearlkit-hitom2.wav',
+      tom3: '/audio/samples/pearlkit-lowtom1.wav',
+    }
+  },
+  {
+    id: 'real-heavy',
+    name: 'Big & Heavy Real Kit',
+    description: 'Powerful, punchy real drum samples',
+    genre: ['metal', 'metalcore'],
+    samples: {
+      kick: '/audio/samples/real-kick-F036.wav',
+      snare: '/audio/samples/real-01BB1-snare-R4M.wav',
+      hihat: '/audio/samples/real-01L1.UF-HiHat-M.wav',
+      openhat: '/audio/samples/real-01L3.UF-HiHat-A-L.wav',
+      crash: '/audio/samples/real-01EG19THCM.wav',
+      ride: '/audio/samples/real-long-ride.wav',
+      tom1: '/audio/samples/real-02.TOM1C-L.wav',
+      tom2: '/audio/samples/real-02.TOM5C-L.wav',
+      tom3: '/audio/samples/real-03.TOM2C-L.wav',
+    }
+  },
+  {
+    id: 'real-aggressive',
+    name: 'Aggressive Real Kit',
+    description: 'Hard-hitting samples for extreme genres',
+    genre: ['metalcore', 'post-hardcore'],
+    samples: {
+      kick: '/audio/samples/real-kick-F045.wav',
+      snare: '/audio/samples/real-01RR-snare-R2A-R.wav',
+      hihat: '/audio/samples/real-02R3.UF-HiHat-M.wav',
+      openhat: '/audio/samples/real-02R3.UF-HiHat-A-R.wav',
+      crash: '/audio/samples/real-01TP19THCM.wav',
+      ride: '/audio/samples/real-long-ride.wav',
+      tom1: '/audio/samples/real-02.TOM1C-L.wav',
+      tom2: '/audio/samples/real-03.TOM3C-L.wav',
+      tom3: '/audio/samples/real-08.TOM4M.wav',
+    }
+  },
+  {
+    id: 'real-dynamic',
+    name: 'Dynamic Real Kit',
+    description: 'Versatile samples for post-hardcore and dynamic playing',
+    genre: ['post-hardcore', 'metal'],
+    samples: {
+      kick: '/audio/samples/real-kick-F024.wav',
+      snare: '/audio/samples/real-02LI-snare-R2M.wav',
+      hihat: '/audio/samples/real-01L2.UF-HiHat-M.wav',
+      openhat: '/audio/samples/real-02L4.UF-HiHat-A-R.wav',
+      crash: '/audio/samples/real-01TP20CHIM.wav',
+      ride: '/audio/samples/real-long-ride.wav',
+      tom1: '/audio/samples/real-02.TOM1C-L.wav',
+      tom2: '/audio/samples/real-02.TOM5C-L.wav',
+      tom3: '/audio/samples/real-03.TOM2C-L.wav',
+    }
+  },
+  {
+    id: 'real-jazz',
+    name: 'Jazz Real Kit',
+    description: 'Warm, dynamic samples perfect for jazz',
+    genre: ['jazz'],
+    samples: {
+      kick: '/audio/samples/real-kick-F049.wav',
+      snare: '/audio/samples/real-soft-snare.wav',
+      hihat: '/audio/samples/real-01PD.UF-HiHat-M.wav',
+      openhat: '/audio/samples/real-01L3.UF-HiHat-A-L.wav',
+      crash: '/audio/samples/pearlkit-ridecrash.wav',
+      ride: '/audio/samples/real-long-ride.wav',
+      tom1: '/audio/samples/pearlkit-hitom1.wav',
+      tom2: '/audio/samples/pearlkit-hitom2.wav',
+      tom3: '/audio/samples/pearlkit-lowtom1.wav',
+    }
+  },
+  {
+    id: 'classic',
+    name: 'Classic Electronic',
+    description: 'Classic drum machine sounds',
+    genre: ['metal', 'metalcore', 'post-hardcore'],
+    samples: {
+      kick: '/audio/samples/BDRUM13.wav',
+      snare: '/audio/samples/SNARE2.wav',
+      hihat: '/audio/samples/HHCLOSE1.wav',
+      openhat: '/audio/samples/HHOPEN1.wav',
+      crash: '/audio/samples/CRASH.wav',
+      ride: '/audio/samples/RIDE.wav',
+      tom1: '/audio/samples/TOMHI5.wav',
+      tom2: '/audio/samples/TOMMID5.wav',
+      tom3: '/audio/samples/TOMLOW5.wav',
+    }
+  }
+];
 
 // Primary sample mapping for each drum type (Pearl kit - clean sounds)
-const SAMPLE_MAPPING: Record<DrumType, string> = {
-  kick: '/audio/samples/pearlkit-kick.wav',
-  snare: '/audio/samples/pearlkit-snare1.wav',
-  hihat: '/audio/samples/pearlkit-hihat.wav',
-  openhat: '/audio/samples/pearlkit-hihatO.wav',
-  crash: '/audio/samples/real-01FX18MDCM.wav', // Better default crash sound
-  ride: '/audio/samples/pearlkit-ride1.wav',
-  tom1: '/audio/samples/pearlkit-hitom1.wav',
-  tom2: '/audio/samples/pearlkit-hitom2.wav',
-  tom3: '/audio/samples/pearlkit-lowtom1.wav',
-};
+const SAMPLE_MAPPING: Record<DrumType, string> = DRUM_KITS[0].samples;
 
 // Genre-specific sample variations for more authentic sounds
 const GENRE_SAMPLE_MAPPING: Record<Genre, Partial<Record<DrumType, string>>> = {
@@ -57,7 +162,7 @@ export class DrumEngine {
   private currentNote = 0;
   private lookahead = 25.0; // How frequently to call scheduling function (in milliseconds)
   private scheduleAheadTime = 0.1; // How far ahead to schedule audio (sec)
-  private notesInQueue: Array<{note: number, time: number}> = [];
+  private notesInQueue: Array<{ note: number, time: number }> = [];
   private bpm = 120;
   private masterGain: GainNode | null = null;
 
@@ -68,14 +173,124 @@ export class DrumEngine {
 
   // Advanced performance features
   private masterProbability = 100; // 0-100, global probability multiplier
-  private scatterEnabled = false; // Scatter effect state
-  private scatterDepth = 5; // 1-10, scatter intensity
-  // TODO: Implement fill patterns feature
-  // private fillPatterns: Map<string, Pattern> = new Map(); // Fill pattern storage
-  // private isInFillMode = false; // Whether currently playing a fill
-  private perDrumGain: Map<DrumType, GainNode> = new Map(); // Per-drum volume control
-  private perDrumMute: Map<DrumType, boolean> = new Map(); // Per-drum mute state
-  private perDrumSolo: Map<DrumType, boolean> = new Map(); // Per-drum solo state
+
+  // Current drum kit
+  private currentKit: DrumKit = DRUM_KITS[0]; // Default to Pearl kit
+  private kitChangeCallback: ((kit: DrumKit) => void) | null = null;
+
+  // Scatter effect properties
+  private scatterEnabled = false;
+  private scatterDepth = 5; // 1-10
+
+  // Per-drum mixer properties
+  private perDrumGain: Map<DrumType, GainNode> = new Map();
+  private perDrumMute: Map<DrumType, boolean> = new Map();
+  private perDrumSolo: Map<DrumType, boolean> = new Map();
+
+  // Legacy effects nodes (for compatibility)
+  private reverbNode: ConvolverNode | null = null;
+  private delayNode: DelayNode | null = null;
+  private filterNode: BiquadFilterNode | null = null;
+  private distortionNode: WaveShaperNode | null = null;
+  private effectsGain: GainNode | null = null;
+  private effectsSettings = {
+    reverb: { level: 0, type: 'room', time: 0.5, gate: false },
+    delay: { level: 0, time: 0.25, feedback: 0.3, type: 'stereo' },
+    filter: { frequency: 1000, resonance: 1, type: 'lowpass' },
+    distortion: { amount: 0, type: 'overdrive' }
+  };
+
+  // Effects processing nodes
+  private masterLimiter: DynamicsCompressorNode | null = null;
+  private masterEQ: BiquadFilterNode | null = null;
+  private drumEffectChains: Map<DrumType, {
+    reverb?: ConvolverNode;
+    delay?: DelayNode;
+    filter?: BiquadFilterNode;
+    distortion?: WaveShaperNode;
+    compressor?: DynamicsCompressorNode;
+    gainNode: GainNode;
+  }> = new Map();
+
+  // Effects state
+  private effectsEnabled = {
+    masterReverb: false,
+    masterDelay: false,
+    masterLimiter: true,
+    masterEQ: false,
+  };
+
+  private drumEffectsState: Record<DrumType, {
+    reverb: { enabled: boolean; wet: number; params: Record<string, number> };
+    delay: { enabled: boolean; wet: number; params: Record<string, number> };
+    filter: { enabled: boolean; wet: number; params: Record<string, number> };
+    distortion: { enabled: boolean; wet: number; params: Record<string, number> };
+    compressor: { enabled: boolean; wet: number; params: Record<string, number> };
+  }> = {
+      kick: {
+        reverb: { enabled: false, wet: 20, params: { room: 30, decay: 40 } },
+        delay: { enabled: false, wet: 15, params: { time: 125, feedback: 25 } },
+        filter: { enabled: false, wet: 100, params: { cutoff: 8000, resonance: 1 } },
+        distortion: { enabled: false, wet: 30, params: { drive: 20 } },
+        compressor: { enabled: false, wet: 100, params: { threshold: -12, ratio: 4 } },
+      },
+      snare: {
+        reverb: { enabled: false, wet: 35, params: { room: 50, decay: 30 } },
+        delay: { enabled: false, wet: 20, params: { time: 250, feedback: 15 } },
+        filter: { enabled: false, wet: 100, params: { cutoff: 12000, resonance: 0.7 } },
+        distortion: { enabled: false, wet: 25, params: { drive: 15 } },
+        compressor: { enabled: false, wet: 100, params: { threshold: -8, ratio: 6 } },
+      },
+      hihat: {
+        reverb: { enabled: false, wet: 15, params: { room: 20, decay: 15 } },
+        delay: { enabled: false, wet: 10, params: { time: 125, feedback: 10 } },
+        filter: { enabled: false, wet: 100, params: { cutoff: 15000, resonance: 0.5 } },
+        distortion: { enabled: false, wet: 20, params: { drive: 10 } },
+        compressor: { enabled: false, wet: 100, params: { threshold: -15, ratio: 3 } },
+      },
+      openhat: {
+        reverb: { enabled: false, wet: 25, params: { room: 40, decay: 25 } },
+        delay: { enabled: false, wet: 15, params: { time: 250, feedback: 12 } },
+        filter: { enabled: false, wet: 100, params: { cutoff: 12000, resonance: 0.6 } },
+        distortion: { enabled: false, wet: 15, params: { drive: 8 } },
+        compressor: { enabled: false, wet: 100, params: { threshold: -12, ratio: 4 } },
+      },
+      crash: {
+        reverb: { enabled: false, wet: 45, params: { room: 70, decay: 60 } },
+        delay: { enabled: false, wet: 25, params: { time: 375, feedback: 20 } },
+        filter: { enabled: false, wet: 100, params: { cutoff: 10000, resonance: 0.8 } },
+        distortion: { enabled: false, wet: 20, params: { drive: 12 } },
+        compressor: { enabled: false, wet: 100, params: { threshold: -10, ratio: 5 } },
+      },
+      ride: {
+        reverb: { enabled: false, wet: 30, params: { room: 50, decay: 45 } },
+        delay: { enabled: false, wet: 20, params: { time: 250, feedback: 18 } },
+        filter: { enabled: false, wet: 100, params: { cutoff: 8000, resonance: 0.7 } },
+        distortion: { enabled: false, wet: 15, params: { drive: 10 } },
+        compressor: { enabled: false, wet: 100, params: { threshold: -12, ratio: 4 } },
+      },
+      tom1: {
+        reverb: { enabled: false, wet: 25, params: { room: 40, decay: 35 } },
+        delay: { enabled: false, wet: 15, params: { time: 125, feedback: 20 } },
+        filter: { enabled: false, wet: 100, params: { cutoff: 6000, resonance: 1.2 } },
+        distortion: { enabled: false, wet: 25, params: { drive: 15 } },
+        compressor: { enabled: false, wet: 100, params: { threshold: -10, ratio: 5 } },
+      },
+      tom2: {
+        reverb: { enabled: false, wet: 25, params: { room: 40, decay: 35 } },
+        delay: { enabled: false, wet: 15, params: { time: 125, feedback: 20 } },
+        filter: { enabled: false, wet: 100, params: { cutoff: 4000, resonance: 1.2 } },
+        distortion: { enabled: false, wet: 25, params: { drive: 15 } },
+        compressor: { enabled: false, wet: 100, params: { threshold: -10, ratio: 5 } },
+      },
+      tom3: {
+        reverb: { enabled: false, wet: 25, params: { room: 40, decay: 35 } },
+        delay: { enabled: false, wet: 15, params: { time: 125, feedback: 20 } },
+        filter: { enabled: false, wet: 100, params: { cutoff: 2000, resonance: 1.2 } },
+        distortion: { enabled: false, wet: 25, params: { drive: 15 } },
+        compressor: { enabled: false, wet: 100, params: { threshold: -10, ratio: 5 } },
+      },
+    };
 
   async initialize() {
     // Don't create AudioContext here - wait for user gesture
@@ -97,6 +312,12 @@ export class DrumEngine {
       this.masterGain = this.audioContext.createGain();
       this.masterGain.connect(this.audioContext.destination);
       this.masterGain.gain.value = 0.7;
+
+      // Initialize effects chain
+      this.initializeEffects();
+
+      // Load initial kit samples
+      await this.loadKitSamples();
 
       console.log('Audio context initialized successfully');
     } catch (error) {
@@ -755,6 +976,486 @@ export class DrumEngine {
   set genre(newGenre: Genre) {
     this.currentGenre = newGenre;
     // Note: Samples will be reloaded when needed during ensureSamplesLoaded
+  }
+
+  // Effects control methods
+  setReverb(type: string, level: number, time: number, gate: number) {
+    if (!this.audioContext) return;
+
+    this.effectsSettings.reverb = { level, type, time, gate: gate > 0 };
+
+    if (level > 0 && !this.reverbNode) {
+      this.reverbNode = this.audioContext.createConvolver();
+      this.createImpulseResponse(time, gate);
+    }
+
+    if (this.reverbNode && this.effectsGain) {
+      this.effectsGain.gain.value = level / 100;
+    }
+
+    console.log(`Reverb set: ${type}, level: ${level}%, time: ${time}s`);
+  }
+
+  setDelay(type: string, level: number, time: number, feedback: number) {
+    if (!this.audioContext) return;
+
+    this.effectsSettings.delay = { level, time, feedback, type };
+
+    if (level > 0 && !this.delayNode) {
+      this.delayNode = this.audioContext.createDelay(1.0);
+      const feedbackGain = this.audioContext.createGain();
+
+      this.delayNode.delayTime.value = time;
+      feedbackGain.gain.value = feedback;
+
+      this.delayNode.connect(feedbackGain);
+      feedbackGain.connect(this.delayNode);
+    }
+
+    if (this.delayNode) {
+      this.delayNode.delayTime.value = time;
+    }
+
+    console.log(`Delay set: ${type}, level: ${level}%, time: ${time}s, feedback: ${feedback}`);
+  }
+
+  setFilter(type: string, frequency: number, resonance: number) {
+    if (!this.audioContext) return;
+
+    this.effectsSettings.filter = { frequency, resonance, type: type as BiquadFilterType };
+
+    if (!this.filterNode) {
+      this.filterNode = this.audioContext.createBiquadFilter();
+    }
+
+    this.filterNode.type = type as BiquadFilterType;
+    this.filterNode.frequency.value = frequency;
+    this.filterNode.Q.value = resonance;
+
+    console.log(`Filter set: ${type}, freq: ${frequency}Hz, Q: ${resonance}`);
+  }
+
+  setDistortion(amount: number, type: string) {
+    if (!this.audioContext) return;
+
+    this.effectsSettings.distortion = { amount, type };
+
+    if (amount > 0 && !this.distortionNode) {
+      this.distortionNode = this.audioContext.createWaveShaper();
+      this.distortionNode.curve = this.makeDistortionCurve(amount);
+      this.distortionNode.oversample = '4x';
+    }
+
+    if (this.distortionNode) {
+      this.distortionNode.curve = this.makeDistortionCurve(amount);
+    }
+
+    console.log(`Distortion set: ${type}, amount: ${amount}%`);
+  }
+
+  private createImpulseResponse(time: number, gate: number) {
+    if (!this.audioContext || !this.reverbNode) return;
+
+    const sampleRate = this.audioContext.sampleRate;
+    const length = sampleRate * time;
+    const impulse = this.audioContext.createBuffer(2, length, sampleRate);
+
+    for (let channel = 0; channel < 2; channel++) {
+      const channelData = impulse.getChannelData(channel);
+      for (let i = 0; i < length; i++) {
+        const n = length - i;
+        channelData[i] = (Math.random() * 2 - 1) * Math.pow(n / length, gate);
+      }
+    }
+
+    this.reverbNode.buffer = impulse;
+  }
+
+  private makeDistortionCurve(amount: number): Float32Array {
+    const samples = 44100;
+    const curve = new Float32Array(samples);
+    const deg = Math.PI / 180;
+
+    for (let i = 0; i < samples; i++) {
+      const x = (i * 2) / samples - 1;
+      curve[i] = ((3 + amount) * x * 20 * deg) / (Math.PI + amount * Math.abs(x));
+    }
+
+    return curve;
+  }
+
+  // Guitar Pro clipboard functionality
+  exportToGuitarPro(): string {
+    if (!this.pattern) return '';
+
+    // Guitar Pro drum notation mapping
+    const gpDrumMap = {
+      kick: 36,      // C2 - Bass Drum
+      snare: 38,     // D2 - Snare
+      hihat: 42,     // F#2 - Closed Hi-Hat
+      openhat: 46,   // A#2 - Open Hi-Hat
+      crash: 49,     // C#3 - Crash Cymbal 1
+      ride: 51,      // D#3 - Ride Cymbal 1
+      tom1: 50,      // D3 - High Tom
+      tom2: 47,      // B2 - Low-Mid Tom
+      tom3: 43,      // G2 - High Floor Tom
+    };
+
+    let gpData = '';
+    const stepDuration = 1920 / (this.pattern.steps / 4); // 16th notes in MIDI ticks
+
+    // Header for Guitar Pro drum track
+    gpData += `\\title "${this.pattern.name}"\n`;
+    gpData += `\\tempo ${this.pattern.bpm}\n`;
+    gpData += `\\track "Drums" channel 10\n`;
+    gpData += `\\clef percussion\n`;
+
+    // Convert pattern to Guitar Pro notation
+    for (let step = 0; step < this.pattern.steps; step++) {
+      const stepTime = step * stepDuration;
+      let notesAtStep: string[] = [];
+
+      Object.entries(this.pattern.beats).forEach(([drumType, beats]) => {
+        const stepData = beats[step];
+        if (typeof stepData === 'object' && stepData?.active) {
+          const midiNote = gpDrumMap[drumType as DrumType];
+          const velocity = stepData.velocity || 100;
+          const accent = stepData.accent ? '>' : '';
+          notesAtStep.push(`${midiNote}:${velocity}${accent}`);
+        }
+      });
+
+      if (notesAtStep.length > 0) {
+        gpData += `${stepTime} [${notesAtStep.join(' ')}] ${stepDuration}\n`;
+      }
+    }
+
+    return gpData;
+  }
+
+  async copyToClipboard(): Promise<boolean> {
+    try {
+      const gpData = this.exportToGuitarPro();
+
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(gpData);
+        console.log('Pattern copied to clipboard in Guitar Pro format');
+        return true;
+      } else {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = gpData;
+        textArea.style.position = 'absolute';
+        textArea.style.left = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        console.log('Pattern copied to clipboard (fallback method)');
+        return true;
+      }
+    } catch (error) {
+      console.error('Failed to copy to clipboard:', error);
+      return false;
+    }
+  }
+
+  // Import from Guitar Pro format
+  importFromGuitarPro(gpData: string): Pattern | null {
+    try {
+      const lines = gpData.split('\n');
+      let title = 'Imported Pattern';
+      let bpm = 120;
+      const beats: Record<DrumType, any[]> = {
+        kick: [], snare: [], hihat: [], openhat: [], crash: [],
+        ride: [], tom1: [], tom2: [], tom3: []
+      };
+
+      // Reverse MIDI note mapping
+      const midiToDrum: Record<number, DrumType> = {
+        36: 'kick', 38: 'snare', 42: 'hihat', 46: 'openhat',
+        49: 'crash', 51: 'ride', 50: 'tom1', 47: 'tom2', 43: 'tom3'
+      };
+
+      // Parse Guitar Pro data
+      lines.forEach(line => {
+        if (line.startsWith('\\title')) {
+          title = line.split('"')[1] || title;
+        } else if (line.startsWith('\\tempo')) {
+          bpm = parseInt(line.split(' ')[1]) || bpm;
+        } else if (line.match(/^\d+\s+\[.*\]/)) {
+          // Parse note data
+          const match = line.match(/\[(.*?)\]/);
+          if (match) {
+            const notes = match[1].split(' ');
+            notes.forEach(note => {
+              const [midiNote, velocityStr] = note.split(':');
+              const midiNum = parseInt(midiNote);
+              const velocity = parseInt(velocityStr) || 100;
+              const drumType = midiToDrum[midiNum];
+
+              if (drumType) {
+                // This is a simplified import - would need proper step calculation
+                beats[drumType].push({
+                  active: true,
+                  velocity,
+                  accent: velocityStr?.includes('>') || false
+                });
+              }
+            });
+          }
+        }
+      });
+
+      // Fill empty steps to match pattern length
+      const patternLength = 16; // Default
+      Object.keys(beats).forEach(drumType => {
+        const drumBeats = beats[drumType as DrumType];
+        while (drumBeats.length < patternLength) {
+          drumBeats.push({ active: false, velocity: 100, accent: false });
+        }
+      });
+
+      return {
+        id: `imported-${Date.now()}`,
+        name: title,
+        genre: 'metal' as Genre,
+        bpm,
+        steps: patternLength,
+        beats,
+        swing: 0,
+        variations: 1,
+        fills: new Array(patternLength).fill(false)
+      };
+    } catch (error) {
+      console.error('Failed to import Guitar Pro data:', error);
+      return null;
+    }
+  }
+
+  // Initialize master effects chain
+  private initializeEffects() {
+    if (!this.audioContext) return;
+
+    // Create master effects
+    this.masterLimiter = this.audioContext.createDynamicsCompressor();
+    this.masterLimiter.threshold.value = -1;
+    this.masterLimiter.knee.value = 0;
+    this.masterLimiter.ratio.value = 20;
+    this.masterLimiter.attack.value = 0.003;
+    this.masterLimiter.release.value = 0.01;
+
+    this.masterEQ = this.audioContext.createBiquadFilter();
+    this.masterEQ.type = 'highshelf';
+    this.masterEQ.frequency.value = 10000;
+    this.masterEQ.gain.value = 0;
+
+    // Connect master effects chain
+    if (this.masterGain) {
+      this.masterGain.disconnect();
+      this.masterGain.connect(this.masterEQ);
+      this.masterEQ.connect(this.masterLimiter);
+      this.masterLimiter.connect(this.audioContext.destination);
+    }
+  }
+
+  // Set drum-specific effects
+  setDrumEffect(drumType: DrumType, effectType: string, config: any) {
+    if (!this.audioContext) return;
+
+    if (!this.drumEffectChains.has(drumType)) {
+      // Initialize effect chain for this drum
+      const gainNode = this.audioContext.createGain();
+      this.drumEffectChains.set(drumType, { gainNode });
+    }
+
+    const chain = this.drumEffectChains.get(drumType)!;
+
+    // Update state
+    if (this.drumEffectsState[drumType] && this.drumEffectsState[drumType][effectType as keyof typeof this.drumEffectsState[typeof drumType]]) {
+      Object.assign(this.drumEffectsState[drumType][effectType as keyof typeof this.drumEffectsState[typeof drumType]], config);
+    }
+
+    switch (effectType) {
+      case 'reverb':
+        if (config.enabled && !chain.reverb) {
+          chain.reverb = this.audioContext.createConvolver();
+          // Create simple reverb impulse
+          const impulse = this.createSimpleImpulse(1.0, 0.3);
+          chain.reverb.buffer = impulse;
+        }
+        break;
+
+      case 'delay':
+        if (config.enabled && !chain.delay) {
+          chain.delay = this.audioContext.createDelay(1.0);
+          chain.delay.delayTime.value = (config.params?.time || 125) / 1000;
+        }
+        break;
+
+      case 'filter':
+        if (config.enabled && !chain.filter) {
+          chain.filter = this.audioContext.createBiquadFilter();
+          chain.filter.type = 'lowpass';
+          chain.filter.frequency.value = config.params?.cutoff || 8000;
+          chain.filter.Q.value = config.params?.resonance || 1;
+        }
+        break;
+
+      case 'distortion':
+        if (config.enabled && !chain.distortion) {
+          chain.distortion = this.audioContext.createWaveShaper();
+          chain.distortion.curve = this.makeDistortionCurve(config.params?.drive || 20);
+          chain.distortion.oversample = '4x';
+        }
+        break;
+
+      case 'compressor':
+        if (config.enabled && !chain.compressor) {
+          chain.compressor = this.audioContext.createDynamicsCompressor();
+          chain.compressor.threshold.value = config.params?.threshold || -12;
+          chain.compressor.ratio.value = config.params?.ratio || 4;
+          chain.compressor.attack.value = 0.003;
+          chain.compressor.release.value = 0.1;
+        }
+        break;
+    }
+  }
+
+  // Create simple reverb impulse
+  private createSimpleImpulse(duration: number, decay: number): AudioBuffer {
+    if (!this.audioContext) throw new Error('Audio context not initialized');
+
+    const length = this.audioContext.sampleRate * duration;
+    const impulse = this.audioContext.createBuffer(2, length, this.audioContext.sampleRate);
+
+    for (let channel = 0; channel < 2; channel++) {
+      const channelData = impulse.getChannelData(channel);
+      for (let i = 0; i < length; i++) {
+        const n = length - i;
+        channelData[i] = (Math.random() * 2 - 1) * Math.pow(n / length, decay);
+      }
+    }
+
+    return impulse;
+  }
+
+  // Get drum effects state for UI
+  getDrumEffectsState() {
+    return this.drumEffectsState;
+  }
+
+  // Get master effects state for UI
+  getMasterEffectsState() {
+    return {
+      reverb: { enabled: this.effectsEnabled.masterReverb, wet: 25, params: { room: 50, decay: 40 } },
+      delay: { enabled: this.effectsEnabled.masterDelay, wet: 20, params: { time: 250, feedback: 30 } },
+      limiter: { enabled: this.effectsEnabled.masterLimiter, wet: 100, params: { threshold: -1, ratio: 20 } },
+      eq: { enabled: this.effectsEnabled.masterEQ, wet: 100, params: { frequency: 10000, gain: 0 } }
+    };
+  }
+
+  // Set master effects
+  setMasterEffect(effectType: string, config: any) {
+    switch (effectType) {
+      case 'limiter':
+        if (this.masterLimiter && config.enabled !== undefined) {
+          this.effectsEnabled.masterLimiter = config.enabled;
+          if (config.params) {
+            if (config.params.threshold !== undefined) {
+              this.masterLimiter.threshold.value = config.params.threshold;
+            }
+            if (config.params.ratio !== undefined) {
+              this.masterLimiter.ratio.value = config.params.ratio;
+            }
+          }
+        }
+        break;
+
+      case 'eq':
+        if (this.masterEQ && config.enabled !== undefined) {
+          this.effectsEnabled.masterEQ = config.enabled;
+          if (config.params) {
+            if (config.params.frequency !== undefined) {
+              this.masterEQ.frequency.value = config.params.frequency;
+            }
+            if (config.params.gain !== undefined) {
+              this.masterEQ.gain.value = config.params.gain;
+            }
+          }
+        }
+        break;
+    }
+  }
+
+  // Kit selection methods
+  getCurrentKit(): DrumKit {
+    return this.currentKit;
+  }
+
+  getAvailableKits(): DrumKit[] {
+    return DRUM_KITS;
+  }
+
+  getKitsForGenre(genre: Genre): DrumKit[] {
+    return DRUM_KITS.filter(kit => kit.genre.includes(genre));
+  }
+
+  async setDrumKit(kitId: string): Promise<void> {
+    const kit = DRUM_KITS.find(k => k.id === kitId);
+    if (!kit) {
+      console.error(`Drum kit with id '${kitId}' not found`);
+      return;
+    }
+
+    console.log(`Switching to drum kit: ${kit.name}`);
+    this.currentKit = kit;
+
+    // Reload samples with new kit
+    await this.loadKitSamples();
+
+    // Notify listeners of kit change
+    if (this.kitChangeCallback) {
+      this.kitChangeCallback(kit);
+    }
+  }
+
+  setKitChangeCallback(callback: (kit: DrumKit) => void) {
+    this.kitChangeCallback = callback;
+  }
+
+  private async loadKitSamples() {
+    if (!this.audioContext) {
+      await this.ensureAudioContext();
+    }
+
+    const samples = this.currentKit.samples;
+    console.log(`Loading samples for kit: ${this.currentKit.name}`);
+
+    // Clear existing samples
+    this.samples.clear();
+
+    const loadPromises = Object.entries(samples).map(async ([drumType, url]) => {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const arrayBuffer = await response.arrayBuffer();
+        const audioBuffer = await this.audioContext!.decodeAudioData(arrayBuffer);
+        this.samples.set(drumType as DrumType, audioBuffer);
+        console.log(`✓ Loaded ${drumType}: ${url}`);
+      } catch (error) {
+        console.error(`Failed to load sample for ${drumType}:`, error);
+        // Fallback to synthetic sound if sample loading fails
+        const fallbackBuffer = this.createDrumSound(drumType as DrumType);
+        this.samples.set(drumType as DrumType, fallbackBuffer);
+      }
+    });
+
+    await Promise.all(loadPromises);
+    console.log(`Loaded ${this.samples.size} drum samples for ${this.currentKit.name}`);
   }
 }
 

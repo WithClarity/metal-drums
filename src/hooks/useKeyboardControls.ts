@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import type { DrumType } from '../types/drum';
 
 interface KeyboardControlsProps {
@@ -52,9 +52,9 @@ export function useKeyboardControls({
 }: KeyboardControlsProps) {
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     // Prevent keyboard shortcuts when typing in input fields
-    if (event.target instanceof HTMLInputElement || 
-        event.target instanceof HTMLTextAreaElement ||
-        event.target instanceof HTMLSelectElement) {
+    if (event.target instanceof HTMLInputElement ||
+      event.target instanceof HTMLTextAreaElement ||
+      event.target instanceof HTMLSelectElement) {
       return;
     }
 
@@ -87,7 +87,7 @@ export function useKeyboardControls({
     // Handle Ctrl+key combinations
     if (isCtrlPressed) {
       event.preventDefault();
-      
+
       switch (key) {
         case 'r':
           onRandomize?.();

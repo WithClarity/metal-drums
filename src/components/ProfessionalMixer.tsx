@@ -119,9 +119,8 @@ export const ProfessionalMixer: React.FC<ProfessionalMixerProps> = ({
             {Array.from({ length: 12 }, (_, i) => (
               <div
                 key={i}
-                className={`meter-bar ${i < (channel.volume / 127) * 12 ? 'active' : ''} ${
-                  i >= 10 ? 'red' : i >= 8 ? 'yellow' : 'green'
-                }`}
+                className={`meter-bar ${i < (channel.volume / 127) * 12 ? 'active' : ''} ${i >= 10 ? 'red' : i >= 8 ? 'yellow' : 'green'
+                  }`}
               />
             ))}
           </div>
@@ -184,9 +183,8 @@ export const ProfessionalMixer: React.FC<ProfessionalMixerProps> = ({
               {Array.from({ length: 16 }, (_, i) => (
                 <div
                   key={i}
-                  className={`meter-bar ${i < (masterVolume / 127) * 16 ? 'active' : ''} ${
-                    i >= 14 ? 'red' : i >= 12 ? 'yellow' : 'green'
-                  }`}
+                  className={`meter-bar ${i < (masterVolume / 127) * 16 ? 'active' : ''} ${i >= 14 ? 'red' : i >= 12 ? 'yellow' : 'green'
+                    }`}
                 />
               ))}
             </div>

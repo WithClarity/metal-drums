@@ -1,5 +1,5 @@
+import { Headphones, Settings, Speaker, Volume2 } from 'lucide-react';
 import { useState } from 'react';
-import { Volume2, Settings, Headphones, Speaker } from 'lucide-react';
 
 interface MixerControlsProps {
   onVolumeChange: (drum: string, volume: number) => void;
@@ -93,9 +93,8 @@ export function MixerControls({
         </h3>
         <button
           onClick={() => setShowAdvanced(!showAdvanced)}
-          className={`p-2 rounded-lg transition-colors ${
-            showAdvanced ? 'bg-blue-600 text-white' : 'bg-gray-600 text-gray-300'
-          }`}
+          className={`p-2 rounded-lg transition-colors ${showAdvanced ? 'bg-blue-600 text-white' : 'bg-gray-600 text-gray-300'
+            }`}
         >
           <Settings size={16} />
         </button>
@@ -127,13 +126,12 @@ export function MixerControls({
           return (
             <div
               key={channel.id}
-              className={`p-3 rounded-lg border transition-all ${
-                state.soloed
+              className={`p-3 rounded-lg border transition-all ${state.soloed
                   ? 'bg-yellow-900/30 border-yellow-600'
                   : state.muted
-                  ? 'bg-red-900/20 border-red-800 opacity-50'
-                  : 'bg-gray-700/30 border-gray-600'
-              }`}
+                    ? 'bg-red-900/20 border-red-800 opacity-50'
+                    : 'bg-gray-700/30 border-gray-600'
+                }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
@@ -144,21 +142,19 @@ export function MixerControls({
                 <div className="flex gap-1">
                   <button
                     onClick={() => handleMute(channel.id)}
-                    className={`px-2 py-1 text-xs rounded transition-colors ${
-                      state.muted
+                    className={`px-2 py-1 text-xs rounded transition-colors ${state.muted
                         ? 'bg-red-600 text-white'
                         : 'bg-gray-600 text-gray-300 hover:bg-gray-500'
-                    }`}
+                      }`}
                   >
                     M
                   </button>
                   <button
                     onClick={() => handleSolo(channel.id)}
-                    className={`px-2 py-1 text-xs rounded transition-colors ${
-                      state.soloed
+                    className={`px-2 py-1 text-xs rounded transition-colors ${state.soloed
                         ? 'bg-yellow-600 text-white'
                         : 'bg-gray-600 text-gray-300 hover:bg-gray-500'
-                    }`}
+                      }`}
                   >
                     S
                   </button>
