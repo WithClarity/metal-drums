@@ -1,10 +1,10 @@
 # 🥁 Metal Drums - Professional Web Drum Machine
 
-**Version 1.0.0** - Production Ready Release
+**Version 1.1.0** - Production Ready Release
 
 A professional-grade drum machine web application built with React and TypeScript, featuring real drum samples, advanced performance controls, and musical notation rendering.
 
-![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen) ![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue) ![React](https://img.shields.io/badge/React-18-61dafb) ![Vite](https://img.shields.io/badge/Vite-Latest-646cff) ![License](https://img.shields.io/badge/License-MIT-yellow)
+![Version](https://img.shields.io/badge/Version-1.1.0-brightgreen) ![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue) ![React](https://img.shields.io/badge/React-18-61dafb) ![Vite](https://img.shields.io/badge/Vite-Latest-646cff) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ## 🚀 Quick Start
 
@@ -21,6 +21,10 @@ npm run dev
 ```
 
 Visit `http://localhost:5173` to start creating drum patterns!
+
+## 🌐 Live Demo
+
+Try the live application at: **https://metal-drums.vercel.app**
 
 ## ✨ Key Features
 
@@ -104,7 +108,7 @@ The app includes Vercel Analytics for tracking:
 - User engagement metrics
 - Performance monitoring
 
-Ready for deployment on Vercel with optimized build configuration.
+**🚀 Deployed on Vercel**: The application is live at https://metal-drums.vercel.app with automatic deployments from the main branch.
 
 ## 📱 Cross-Platform
 

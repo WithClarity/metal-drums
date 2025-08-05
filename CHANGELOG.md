@@ -5,6 +5,28 @@ All notable changes to the Metal Drums project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-08-05
+
+### 🚀 **Major Feature Update - Multiple Drum Kits & Production Deployment**
+
+### ✨ **Added**
+- **Multiple Drum Kit Support**: Users can now switch between 6 different drum kits (Pearl, Real, Classic, Electronic, Jazz, Vintage)
+- **DrumKitSelector Component**: New UI tab for selecting and switching drum kits
+- **Vercel Analytics Integration**: Real-time visitor tracking and performance monitoring
+- **Production Deployment**: Live application deployed at https://metal-drums.vercel.app
+- **Enhanced Audio Engine**: Support for dynamic sample loading across different drum kits
+
+### 🔧 **Improved**
+- **Performance**: Optimized audio loading and sample management
+- **UI/UX**: Added drum kit selection interface with visual indicators
+- **Documentation**: Updated README with live demo link and deployment information
+- **Build Process**: Enhanced Vercel deployment configuration
+
+### 📊 **Analytics**
+- Page view tracking
+- User engagement metrics
+- Performance monitoring dashboard
+
 ## [1.0.0] - 2025-08-04
 
 ### 🎉 **Initial Release - Production Ready**
